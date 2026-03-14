@@ -3556,19 +3556,19 @@ html, body { background: var(--pro-bg) !important; }
 }
 
 /* Sync footer bag icon color with row bag icon */
-tr.flight-card:not(:has(.fl-bookmark-btn.unavailable)) + tr.fl-info-row .rt-icon-btn[title="Baggage rules"] svg rect,
-tr.flight-card:not(:has(.fl-bookmark-btn.unavailable)) + tr.fl-info-row .rt-icon-btn[title="Baggage rules"] svg path {
+tr.flight-card:not(:has(.fl-bookmark-btn.unavailable)) .rt-icon-btn[title="Baggage rules"] svg rect,
+tr.flight-card:not(:has(.fl-bookmark-btn.unavailable)) .rt-icon-btn[title="Baggage rules"] svg path {
   stroke: #059669 !important;
 }
-tr.flight-card:not(:has(.fl-bookmark-btn.unavailable)) + tr.fl-info-row .rt-icon-btn[title="Baggage rules"] {
+tr.flight-card:not(:has(.fl-bookmark-btn.unavailable)) .rt-icon-btn[title="Baggage rules"] {
   border-color: rgba(5,150,105,0.35) !important;
   background: rgba(5,150,105,0.06) !important;
 }
-tr.flight-card:has(.fl-bookmark-btn.unavailable) + tr.fl-info-row .rt-icon-btn[title="Baggage rules"] svg rect,
-tr.flight-card:has(.fl-bookmark-btn.unavailable) + tr.fl-info-row .rt-icon-btn[title="Baggage rules"] svg path {
+tr.flight-card:has(.fl-bookmark-btn.unavailable) .rt-icon-btn[title="Baggage rules"] svg rect,
+tr.flight-card:has(.fl-bookmark-btn.unavailable) .rt-icon-btn[title="Baggage rules"] svg path {
   stroke: #b83220 !important;
 }
-tr.flight-card:has(.fl-bookmark-btn.unavailable) + tr.fl-info-row .rt-icon-btn[title="Baggage rules"] {
+tr.flight-card:has(.fl-bookmark-btn.unavailable) .rt-icon-btn[title="Baggage rules"] {
   border-color: rgba(184,50,32,0.35) !important;
   background: rgba(184,50,32,0.06) !important;
 }
@@ -4503,7 +4503,7 @@ tr.flight-card:has(.fl-bookmark-btn.unavailable) + tr.fl-info-row .rt-icon-btn[t
             <td colspan="9">
               <div class="fl-info-inner"><div class="rt-search-icon" onclick="toggleFlDetail('fl-detail-1')"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
                 <div class="fl-icon-group">
-                  <button class="rt-icon-btn" title="Baggage rules"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><rect x="6" y="8" width="12" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>
+                  <button class="rt-icon-btn" title="Baggage rules" style="border-color:rgba(5,150,105,0.35)!important;background:rgba(5,150,105,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><rect x="6" y="8" width="12" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>
                   <button class="rt-icon-btn" title="Refund rules" style="border-color:rgba(184,50,32,0.35)!important;background:rgba(184,50,32,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#b83220" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
                   <button class="rt-icon-btn" title="Cancel rules" style="border-color:rgba(184,50,32,0.35)!important;background:rgba(184,50,32,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#b83220" stroke-width="2"><circle cx="12" cy="12" r="9"/><text x="12" y="16.5" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter,sans-serif" fill="#b83220" stroke="none">$</text></svg></button>
                 </div>
@@ -4588,7 +4588,7 @@ tr.flight-card:has(.fl-bookmark-btn.unavailable) + tr.fl-info-row .rt-icon-btn[t
             <td colspan="9">
               <div class="fl-info-inner"><div class="rt-search-icon" onclick="toggleFlDetail('fl-detail-2')"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
                 <div class="fl-icon-group">
-                  <button class="rt-icon-btn" title="Baggage rules"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><rect x="6" y="8" width="12" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>
+                  <button class="rt-icon-btn" title="Baggage rules" style="border-color:rgba(184,50,32,0.35)!important;background:rgba(184,50,32,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#b83220" stroke-width="2"><rect x="6" y="8" width="12" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>
                   <button class="rt-icon-btn" title="Refund rules" style="border-color:rgba(184,50,32,0.35)!important;background:rgba(184,50,32,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#b83220" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
                   <button class="rt-icon-btn" title="Cancel rules" style="border-color:rgba(5,150,105,0.35)!important;background:rgba(5,150,105,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><circle cx="12" cy="12" r="9"/><text x="12" y="16.5" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter,sans-serif" fill="#059669" stroke="none">$</text></svg></button>
                 </div>
@@ -4671,7 +4671,7 @@ tr.flight-card:has(.fl-bookmark-btn.unavailable) + tr.fl-info-row .rt-icon-btn[t
             <td colspan="9">
               <div class="fl-info-inner"><div class="rt-search-icon" onclick="toggleFlDetail('fl-detail-4')"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
                 <div class="fl-icon-group">
-                  <button class="rt-icon-btn" title="Baggage rules"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><rect x="6" y="8" width="12" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>
+                  <button class="rt-icon-btn" title="Baggage rules" style="border-color:rgba(184,50,32,0.35)!important;background:rgba(184,50,32,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#b83220" stroke-width="2"><rect x="6" y="8" width="12" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>
                   <button class="rt-icon-btn" title="Refund rules" style="border-color:rgba(184,50,32,0.35)!important;background:rgba(184,50,32,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#b83220" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
                   <button class="rt-icon-btn" title="Cancel rules" style="border-color:rgba(5,150,105,0.35)!important;background:rgba(5,150,105,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><circle cx="12" cy="12" r="9"/><text x="12" y="16.5" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter,sans-serif" fill="#059669" stroke="none">$</text></svg></button>
                 </div>
@@ -4779,7 +4779,7 @@ tr.flight-card:has(.fl-bookmark-btn.unavailable) + tr.fl-info-row .rt-icon-btn[t
               <div class="fl-info-inner">
                 <div class="rt-search-icon" onclick="toggleFlDetail('fl-detail-5')"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
                 <div class="fl-icon-group">
-                  <button class="rt-icon-btn" title="Baggage rules"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><rect x="6" y="8" width="12" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>
+                  <button class="rt-icon-btn" title="Baggage rules" style="border-color:rgba(184,50,32,0.35)!important;background:rgba(184,50,32,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#b83220" stroke-width="2"><rect x="6" y="8" width="12" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>
                   <button class="rt-icon-btn" title="Refund rules" style="border-color:rgba(184,50,32,0.35)!important;background:rgba(184,50,32,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#b83220" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
                   <button class="rt-icon-btn" title="Cancel rules" style="border-color:rgba(5,150,105,0.35)!important;background:rgba(5,150,105,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><circle cx="12" cy="12" r="9"/><text x="12" y="16.5" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter,sans-serif" fill="#059669" stroke="none">$</text></svg></button>
                 </div>
@@ -4913,7 +4913,7 @@ tr.flight-card:has(.fl-bookmark-btn.unavailable) + tr.fl-info-row .rt-icon-btn[t
               <div class="fl-info-inner">
                 <div class="rt-search-icon" onclick="toggleFlDetail('fl-detail-6')"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
                 <div class="fl-icon-group">
-                  <button class="rt-icon-btn" title="Baggage rules"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><rect x="6" y="8" width="12" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>
+                  <button class="rt-icon-btn" title="Baggage rules" style="border-color:rgba(5,150,105,0.35)!important;background:rgba(5,150,105,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><rect x="6" y="8" width="12" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>
                   <button class="rt-icon-btn" title="Refund rules" style="border-color:rgba(184,50,32,0.35)!important;background:rgba(184,50,32,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#b83220" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
                   <button class="rt-icon-btn" title="Cancel rules" style="border-color:rgba(5,150,105,0.35)!important;background:rgba(5,150,105,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><circle cx="12" cy="12" r="9"/><text x="12" y="16.5" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter,sans-serif" fill="#059669" stroke="none">$</text></svg></button>
                 </div>
@@ -5416,6 +5416,9 @@ function buildRTRow(f, idx, side) {
   var b1 = f.bag1 || f.bag || 'green';
   var p2 = f.pax2 || f.pax || '2P';
   var b2 = f.bag2 || f.bag || 'red';
+  var bagAvail = (b1 === 'green');
+  var bagBtnStyle = bagAvail ? 'border-color:rgba(5,150,105,0.35)!important;background:rgba(5,150,105,0.06)!important;' : 'border-color:rgba(184,50,32,0.35)!important;background:rgba(184,50,32,0.06)!important;';
+  var bagBtnStroke = bagAvail ? '#059669' : '#b83220';
   function mkBadge(pax, bag) {
     var unavail = (bag !== 'green');
     return '<div class="rt-bag-badge"><span class="fl-1p-label" style="font-size: 11px !important;line-height:22px!important">' + pax + '</span><button class="fl-bookmark-btn' + (unavail ? ' unavailable' : '') + '" title="Baggage ' + (unavail ? 'not ' : '') + 'included" style="width:22px;height:22px">' + suitcase + (unavail ? bline : '') + '</button></div>';
@@ -5499,11 +5502,11 @@ function buildRTRow(f, idx, side) {
   var detailFooter =
     '<div style="background:#f8fbff;padding:5px 14px;font-size:.64rem;color:#4a6080;border-top:1px solid rgba(0,100,200,0.08);display:flex;align-items:center;gap:8px">' +
       '<div style="display:flex;gap:3px">' +
-        '<button class="rt-icon-btn" title="Baggage rules"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><rect x="6" y="8" width="12" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>' +
+        '<button class="rt-icon-btn" title="Baggage rules" style="'+bagBtnStyle+'"><svg viewBox="0 0 24 24" fill="none" stroke="'+bagBtnStroke+'" stroke-width="2"><rect x="6" y="8" width="12" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>' +
         '<button class="rt-icon-btn" title="Refund rules" style="border-color:rgba(5,150,105,0.35)!important;background:rgba(5,150,105,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>' +
         '<button class="rt-icon-btn" title="Cancel rules" style="border-color:rgba(184,50,32,0.35)!important;background:rgba(184,50,32,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#b83220" stroke-width="2"><circle cx="12" cy="12" r="9"/><text x="12" y="16.5" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter,sans-serif" fill="#b83220" stroke="none">$</text></svg></button>' +
       '</div>' +
-      
+
     '</div>';
 
   var detailPanel =
@@ -5546,7 +5549,7 @@ function buildRTRow(f, idx, side) {
   '<tr><td colspan="4" style="background:#f0f6ff;padding:5px 8px;font-size:.64rem;color:#4a6080">' +
     '<div style="display:flex;align-items:center;gap:6px;width:100%">' +
     '<div style="display:flex;gap:3px">' +
-      '<button class="rt-icon-btn" title="Baggage rules"><svg viewBox="0 0 24 24" fill="none" stroke="#1a5fa8" stroke-width="2"><rect x="6" y="8" width="12" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>' +
+      '<button class="rt-icon-btn" title="Baggage rules" style="'+bagBtnStyle+'"><svg viewBox="0 0 24 24" fill="none" stroke="'+bagBtnStroke+'" stroke-width="2"><rect x="6" y="8" width="12" height="13" rx="2"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button>' +
       '<button class="rt-icon-btn" title="Refund rules" style="border-color:rgba(184,50,32,0.35)!important;background:rgba(184,50,32,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#b83220" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>' +
       '<button class="rt-icon-btn" title="Cancel rules" style="border-color:rgba(5,150,105,0.35)!important;background:rgba(5,150,105,0.06)!important;"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><circle cx="12" cy="12" r="9"/><text x="12" y="16.5" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter,sans-serif" fill="#059669" stroke="none">$</text></svg></button>' +
     '</div>' +
