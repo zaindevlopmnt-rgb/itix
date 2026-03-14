@@ -482,11 +482,33 @@ body {
 /* Prevent individual row hover — whole group should feel like one card */
 .fl-table tbody tr.flight-card-multi:hover td,
 .fl-table tbody tr.flight-card-sub:hover td,
-.fl-table tbody tr.fl-info-row:hover td,
 .fl-table tbody tr.flight-card-multi td,
 .fl-table tbody tr.flight-card-sub td {
   background: #ffffff !important;
   box-shadow: none !important;
+}
+/* Keep pocket gradient on hover */
+.fl-table tbody tr.fl-info-row:hover td {
+  background: #eaf1fc !important;
+}
+/* When detail panel is open: pocket loses bottom stitch, sides continue into detail */
+.fl-table tbody tr.fl-info-row.detail-open td {
+  border-bottom: none !important;
+  padding-bottom: 9px !important;
+}
+.fl-table tbody tr.fl-info-row.detail-open td:first-child {
+  border-bottom-left-radius: 0 !important;
+}
+.fl-table tbody tr.fl-info-row.detail-open td:last-child {
+  border-bottom-right-radius: 0 !important;
+}
+/* Detail panel stitching: left + right + bottom, continuing from pocket */
+.fl-detail-row.open > td {
+  border-left: 1.5px solid #c8d8ee !important;
+  border-right: 1.5px solid #c8d8ee !important;
+  border-bottom: 14px solid #ffffff !important;
+  border-bottom-left-radius: 6px !important;
+  border-bottom-right-radius: 6px !important;
 }
 /* Group hover via JS class — disabled for multi-airline cards */
 .fl-table tbody tr.fc-group-hover td,
@@ -911,9 +933,9 @@ body {
   overflow: hidden;
   transition: box-shadow .2s, border-color .2s;
   animation: fadeUp .3s ease both;
-  font-size: 15.42px;
+  font-size: 11px;
 }
-.flight-card:hover { box-shadow: 0 4px 24px rgba(0,20,80,0.1); border-color: rgba(0,194,255,0.4); }
+.flight-card:hover { }
 .flight-card.best-deal { border-color: rgba(0,194,255,0.5); box-shadow: 0 2px 16px rgba(0,194,255,0.1); }
 .flight-card-badge {
   display: inline-flex; align-items: center;
@@ -941,8 +963,8 @@ body {
 .airline-logo-img-wrap span {
   color: #fff; font-size: .72rem; font-weight: 800; font-family: var(--mono);
 }
-.airline-name { font-size: 15.42px; font-weight: 400; color: #002352; }
-.airline-code { font-size: 15.42px; color: #002352; font-family: var(--mono); }
+.airline-name { font-size: 11px; font-weight: 400; color: #002352; }
+.airline-code { font-size: 11px; color: #002352; font-family: var(--mono); }
 .flight-times { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 260px; }
 .flight-dep, .flight-arr { text-align: center; }
 .flight-time { font-size: 1.3rem; font-weight: 700; color: #002352; line-height: 1.1; }
@@ -1029,7 +1051,34 @@ body {
   transition: all .2s;
 }
 .rt-sort-btn:hover { border-color: #00c2ff; color: #1a5fa8; }
-.rt-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; font-family: var(--font); }
+.rt-table { width: 100%; border-spacing: 0 6px; font-family: var(--font); }
+
+/* ── ONE-WAY DEPARTURE DATE NAV BAR ── */
+.fl-dep-nav {
+  display: flex; align-items: center;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid #00c2ff;
+  border-radius: 0;
+  padding: 14px 20px;
+  margin-bottom: 28px;
+  min-height: 48px;
+}
+.fl-dep-nav-label {
+  font-size: 1rem; font-weight: 900;
+  color: #00c2ff; letter-spacing: .8px; min-width: 130px;
+}
+.fl-dep-nav-center {
+  flex: 1; display: flex; align-items: center;
+  justify-content: center; gap: 10px; font-size: 1rem;
+}
+.fl-dep-nav-btn {
+  background: none; border: none; color: #1a5fa8;
+  cursor: pointer; font-size: 1rem; font-weight: 600;
+  padding: 2px 6px; line-height: 1; transition: color .2s;
+}
+.fl-dep-nav-btn:hover { color: #00c2ff; }
+.fl-dep-date { font-size: 1rem; font-weight: 700; color: #00c2ff; white-space: nowrap; }
 /* RT last column — bag icons inline on the right of each segment */
 .rt-table td:last-child { vertical-align: middle !important; }
 .rt-table td:last-child .fl-bookmark-btn { box-shadow: none !important; }
@@ -1058,7 +1107,7 @@ body {
 /* price cell */
 .rt-price-wrap { display: flex; align-items: flex-start; gap: 4px; }
 .rt-radio { margin-top: 3px; accent-color: #1a5fa8; }
-.rt-price-val { font-size: 15px; font-weight: 600; color: #1a5fa8; white-space: nowrap; }
+.rt-price-val { font-size: 15px; font-weight: 600; color: #00c2ff; white-space: nowrap; }
 .rt-price-sub { font-size: 15px; color: #4a6080; margin-top: 2px; font-weight: 400; }
 
 /* airline cell */
@@ -1175,7 +1224,7 @@ body {
 .fl-class-table {
   width: 100%; border-collapse: collapse;
   margin-top: 20px; font-size: 15px;
-  table-layout: fixed;
+  table-layout: auto;
 }
 .fl-class-table th, .fl-class-table td {
   padding: 8px 12px; text-align: left; box-sizing: border-box;
@@ -1190,11 +1239,14 @@ body {
   vertical-align: middle; font-size: 15px;
   border-bottom: 1px solid rgba(0,100,200,0.06);
 }
-.fl-class-table th:nth-child(1), .fl-class-table td:nth-child(1) { width: 45%; text-align: left; }
-.fl-class-table th:nth-child(2), .fl-class-table td:nth-child(2) { width: 15%; text-align: left; }
-.fl-class-table th:nth-child(3), .fl-class-table td:nth-child(3) { width: 40%; text-align: left; }
+.fl-class-table th:nth-child(1), .fl-class-table td:nth-child(1) { text-align: left; }
+.fl-class-table th:nth-child(2), .fl-class-table td:nth-child(2) { text-align: left; }
+.fl-class-table th:nth-child(3), .fl-class-table td:nth-child(3) { text-align: right; white-space: nowrap; }
 .fl-class-table tr:last-child td { border-bottom: none; }
-.fl-class-price { font-weight: 700; color: #1a5fa8; }
+.fl-class-price { font-weight: 700; color: #1a5fa8; display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
+.fl-price-cancel-icon { display: inline-flex; align-items: center; }
+.fl-price-cancel-icon .rt-icon-btn { width: 36px !important; height: 36px !important; min-width: 36px !important; opacity: 1 !important; border-color: rgba(5,150,105,0.35) !important; background: rgba(5,150,105,0.06) !important; }
+.fl-price-cancel-icon .rt-icon-btn svg { width: 20px !important; height: 20px !important; }
 .fl-cancel-icon { display: none !important; /* hidden */ 
   width: 20px; height: 20px; display: inline-flex; align-items: center;
   justify-content: center; cursor: pointer;
@@ -1202,10 +1254,25 @@ body {
 .fl-cancel-icon svg { width: 14px; height: 14px; }
 .fl-seg-airports {
   font-size: 15px; color: #4a6080; margin-top: 3px;
-  padding-left: 36px;
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding-left: 0;
+  position: relative;
+  display: flex; align-items: stretch; justify-content: space-between; gap: 12px;
 }
-.fl-seg-airports-names { display: flex; flex-direction: column; flex: 1; }
+
+.fl-route-icon-col::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 26px;
+  bottom: 26px;
+  width: 1.5px;
+  background: repeating-linear-gradient(to bottom, #00c2ff 0px, #00c2ff 4px, transparent 4px, transparent 8px);
+  transform: translateX(-50%);
+}
+
+
+
+.fl-seg-airports-names { display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
 .fl-seg-airport-row { margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
 .fl-seg-airport-name { color: #0d1f35; font-weight: 500; }
 .fl-seg-dur {
@@ -1249,7 +1316,7 @@ body {
 .flight-radio { width: 16px; height: 16px; accent-color: #1a5fa8; cursor: pointer; flex-shrink: 0; }
 .flight-price-inline { font-size: .85rem; font-weight: 800; color: #002352; min-width: 72px; }
 .flight-gds-badge-old { display: none; } /* overridden below */
-.flight-class-inline { font-size: 15.42px; color: #002352; font-style: italic; }
+.flight-class-inline { font-size: 11px; color: #002352; font-style: italic; }
 .flight-route-row {
   display: flex; align-items: center; gap: 14px;
   padding: 3px 16px 0; font-size: .72rem; flex-wrap: wrap;
@@ -1455,7 +1522,7 @@ body {
   overflow: hidden;
   flex-shrink: 0;
 }
-.fl-1p-label { position: static !important; display: inline !important; font-size: 15px !important; font-weight: 700 !important; color: #1a5fa8 !important; font-family: var(--font) !important; line-height: 1 !important; white-space: nowrap !important; }
+.fl-1p-label { position: static !important; display: inline !important; font-size: 11px !important; font-weight: 700 !important; color: #00c2ff !important; font-family: var(--font) !important; line-height: 1 !important; white-space: nowrap !important; }
 .fl-bookmark-btn svg { width: 100%; height: 100%; }
 .fl-bookmark-btn .fl-bm-line { display: none; }
 /* Available = blue suitcase icon */
@@ -1471,7 +1538,7 @@ body {
 .fl-stop-cell > *:last-child { margin-right: 0 !important; }
 .fl-stop-cell > .flight-stops { display: inline !important; vertical-align: middle !important; }
 .fl-stop-cell .fl-bookmark-btn { position: absolute !important; right: 4px !important; top: 50% !important; transform: translateY(-50%) !important; margin: 0 !important; }
-.fl-stop-cell .fl-1p-label { position: absolute !important; right: 34px !important; top: 50% !important; transform: translateY(-50%) !important; margin: 0 !important; font-size: 15px !important; font-weight: 700 !important; color: #1a5fa8 !important; }
+.fl-stop-cell .fl-1p-label { position: absolute !important; right: 34px !important; top: 50% !important; transform: translateY(-50%) !important; margin: 0 !important; font-size: 11px !important; font-weight: 700 !important; color: #00c2ff !important; }
 
 .flight-list { overflow-x: visible; }
 .fl-table {
@@ -1479,15 +1546,15 @@ body {
   border-collapse: collapse;
   table-layout: auto;
   font-family: var(--font);
-  font-size: 15.42px;
+  font-size: 11px;
   background: #fff;
   border: 1.5px solid rgba(0,100,200,0.14);
   border-radius: 10px;
   overflow: hidden;
 }
 .fl-table thead tr {
-  border-bottom: 1px solid #c8d4e0;
-  background: #e8edf2;
+  border-bottom: none;
+  background: transparent;
 }
 .fl-table thead th {
   padding: 6px 5px;
@@ -1516,20 +1583,34 @@ body {
   animation: none;
   background: #ffffff;
 }
-.fl-table tbody tr.flight-card:hover { background: #f5f8ff; }
+.fl-table tbody tr.flight-card:hover { }
 .fl-table tbody tr.flight-card.best-deal { background: #ffffff; border-left: none; }
 .fl-table tbody tr.flight-card.card-selected { background: transparent !important; }
 .fl-table *, .fl-table td { font-weight: 400 !important; }
 .fl-table tbody tr.fl-info-row td {
-  background: #f8fafd;
-  padding: 7px 8px;
-  border-top: 1px solid #d0d8e4;
-  border-bottom: 18px solid #dde3ea;
+  background: #eaf1fc;
+  padding: 5px 12px 5px 12px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 14px solid #ffffff;
+  box-shadow: 0 3px 10px rgba(0,20,80,0.07), 0 1px 3px rgba(0,20,80,0.04);
+  position: relative;
+}
+.fl-table tbody tr.fl-info-row td:first-child {
+  border-left: 1.5px solid #c8d8ee;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 6px;
+}
+.fl-table tbody tr.fl-info-row td:last-child {
+  border-right: 1.5px solid #c8d8ee;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 6px;
 }
 .fl-table td {
   padding: 8px 6px;
   vertical-align: middle;
-  font-size: 15.42px;
+  font-size: 11px;
   overflow: visible;
   white-space: normal;
   color: #002352;
@@ -1537,16 +1618,16 @@ body {
 }
 .fl-price-wrap { display: flex; align-items: flex-start; gap: 4px; }
 .fl-price-wrap > input[type="radio"] { margin-top: 2px !important; flex-shrink: 0 !important; }
-.fl-price-val { font-size: 15.42px; font-weight: 700; color: #00c2ff; white-space: nowrap; }
+.fl-price-val { font-size: 11px; font-weight: 700; color: #00c2ff; white-space: nowrap; }
 .fl-price-sub { font-size: 13px; color: #555; margin-top: 1px; }
-.fl-price-class { font-size: 13px; color: #555; margin-top: 10px; font-style: italic; }
+.fl-price-class { font-size: 11px; color: #555; margin-top: 10px; font-style: italic; }
 .fl-airline-row { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
 .fl-airline-row:last-child { margin-bottom: 0; }
-.fl-flno { font-family: var(--font); font-size: 15.42px; font-weight: 400; color: #002352; white-space: nowrap; display: block; line-height: 1.8; }
-.fl-route { font-family: var(--font); font-size: 15.42px; font-weight: 400; color: #002352; white-space: nowrap; display: block; line-height: 1.8; }
-.fl-time { font-family: var(--font); font-size: 15.42px; font-weight: 400; color: #002352; white-space: nowrap; display: block; line-height: 1.8; }
-.fl-table .fl-time .flight-time { font-size: 15.42px; font-weight: 400; line-height: 1.8; color: #002352; display: block; }
-.fl-dur { font-size: 15.42px; color: #002352; white-space: normal; line-height: 1.4; display: block; }
+.fl-flno { font-family: var(--font); font-size: 11px; font-weight: 400; color: #002352; white-space: nowrap; display: block; line-height: 1.8; }
+.fl-route { font-family: var(--font); font-size: 11px; font-weight: 400; color: #002352; white-space: nowrap; display: block; line-height: 1.8; }
+.fl-time { font-family: var(--font); font-size: 11px; font-weight: 400; color: #002352; white-space: nowrap; display: block; line-height: 1.8; }
+.fl-table .fl-time .flight-time { font-size: 11px; font-weight: 400; line-height: 1.8; color: #002352; display: block; }
+.fl-dur { font-size: 11px; color: #002352; white-space: normal; line-height: 1.4; display: block; }
 .fl-operated { font-size: 15px; color: #f97316; font-style: italic; margin-top: 2px; display: block; }
 .flight-gds-badge {
   font-size: 13px; font-weight: 700; color: #002352;
@@ -1556,7 +1637,7 @@ body {
   white-space: nowrap;
   display: inline-block;
 }
-.flight-stops { font-size: 15.42px; color: #002352; font-weight: 400; display: block;  }
+.flight-stops { font-size: 11px; color: #002352; font-weight: 400; display: block;  }
 .flight-stops.stop-text { color: #002352; }
 .fl-last-seat {
   display: inline-block;
@@ -1568,7 +1649,7 @@ body {
   letter-spacing: .03em;
   flex-shrink: 0;
 }
-.fl-1p-label { position: static !important; display: inline !important; font-size: 15px !important; font-weight: 700 !important; color: #1a5fa8 !important; font-family: var(--font) !important; line-height: 1 !important; white-space: nowrap !important; }
+.fl-1p-label { position: static !important; display: inline !important; font-size: 11px !important; font-weight: 700 !important; color: #00c2ff !important; font-family: var(--font) !important; line-height: 1 !important; white-space: nowrap !important; }
 .fl-bookmark-btn {
   position: relative;
    
@@ -1595,7 +1676,7 @@ body {
   color: #4a6080;
 }
 .fl-icon-group { display: flex; gap: 3px; flex-shrink: 0; }
-.fl-info-text { flex: 1; font-size: 15.42px; color: #002352; }
+.fl-info-text { flex: 1; font-size: 11px; color: #002352; }
 
 
 .continue-booking-btn {
@@ -2851,7 +2932,7 @@ html, body { background: var(--pro-bg) !important; }
 /* ── The main flight table container ── */
 .fl-table {
   width: 100%;
-  border-collapse: separate !important;
+
   border-spacing: 0 !important;
   table-layout: auto;
   font-family: var(--pro-font) !important;
@@ -2867,7 +2948,7 @@ html, body { background: var(--pro-bg) !important; }
   border-bottom: none !important;
 }
 .fl-table thead th {
-  padding: 0 10px 10px !important;
+  padding: 5px !important;
   text-align: left !important;
   font-size: 11px !important;
   color: var(--pro-label) !important;
@@ -2890,18 +2971,41 @@ html, body { background: var(--pro-bg) !important; }
 .fl-table tbody tr.flight-card:first-of-type td:last-child { border-top-right-radius: var(--pro-radius); }
 
 .fl-table tbody tr.flight-card td {
-  padding: 14px 10px !important;
+  padding: 3px !important;
   vertical-align: middle !important;
-  font-size: 13.5px !important;
+  font-size: 11px !important;
   color: var(--pro-text) !important;
-  border-bottom: 1px solid var(--pro-divider) !important;
+  border-bottom: none !important;
+  border-top: 1.5px solid #c8d8ee !important;
+  background: #ffffff !important;
+}
+.fl-table tbody tr.flight-card:first-of-type td { border-top: none !important; }
+.fl-table tbody tr.flight-card:hover td {
+  background: #f5f8ff !important;
+  transition: background 0.15s !important;
+}
+.fl-table tbody tr.flight-card td:first-child {
+  border-left: 1.5px solid #c8d8ee !important;
+  border-top-left-radius: 6px !important;
+}
+.fl-table tbody tr.flight-card td:last-child {
+  border-right: 1.5px solid #c8d8ee !important;
+  border-top-right-radius: 6px !important;
+}
+/* Consecutive flight-card rows (multi-leg): horizontal stitch divider + left/right stitch continues */
+.fl-table tbody tr.flight-card + tr.flight-card td {
   border-top: none !important;
-  background: inherit !important;
+}
+.fl-table tbody tr.flight-card + tr.flight-card td:first-child {
+  border-top-left-radius: 0 !important;
+  border-left: none !important;
+}
+.fl-table tbody tr.flight-card + tr.flight-card td:last-child {
+  border-top-right-radius: 0 !important;
+  border-right: none !important;
 }
 
-.fl-table tbody tr.flight-card:hover {
-  background: #f8faff !important;
-}
+.fl-table tbody tr.flight-card:hover { }
 /* No hover effect on multi-airline cards */
 .fl-table tbody tr.flight-card-multi:hover,
 .fl-table tbody tr.flight-card-multi:hover td,
@@ -2910,25 +3014,63 @@ html, body { background: var(--pro-bg) !important; }
   background: #ffffff !important;
   box-shadow: none !important;
 }
-/* Remove divider lines between sub-rows of a multi-airline card */
+/* Sub-rows of a multi-airline card: remove all inner stitches */
 .fl-table tbody tr.flight-card-sub td,
 .fl-table tbody tr.flight-card-multi td {
   border-bottom: none !important;
   border-top: none !important;
 }
-
-/* Grouped card: wrap flight rows + info row together visually */
-.fl-table tbody tr.flight-card + tr.flight-card td {
-  border-top: none !important;
+.fl-table tbody tr.flight-card-sub td:first-child,
+.fl-table tbody tr.flight-card-multi td:first-child {
+  border-left: none !important;
+}
+.fl-table tbody tr.flight-card-sub td:last-child,
+.fl-table tbody tr.flight-card-multi td:last-child {
+  border-right: none !important;
 }
 
-/* ── Info/action bar row ── */
+/* First row of multi-segment card: restore outer stitch (overrides rules above) */
+.fl-table tbody tr.flight-card-multi:not(.flight-card-sub) td {
+  border-top: 1.5px solid #c8d8ee !important;
+  border-bottom: none !important;
+}
+.fl-table tbody tr.flight-card-multi:not(.flight-card-sub) td:first-child {
+  border-left: 1.5px solid #c8d8ee !important;
+  border-top-left-radius: 6px !important;
+}
+.fl-table tbody tr.flight-card-multi:not(.flight-card-sub) td:last-child {
+  border-right: 1.5px solid #c8d8ee !important;
+  border-top-right-radius: 6px !important;
+}
+
+/* ── Info/action bar row — pocket with needle stitch ── */
 .fl-table tbody tr.fl-info-row td {
-  background: #f8fafd !important;
-  padding: 7px 10px !important;
-  border-top: 1px solid var(--pro-divider) !important;
-  border-bottom: 18px solid #dde3ea !important;
-  border-radius: 0 0 var(--pro-radius) var(--pro-radius) !important;
+  background: #eaf1fc !important;
+  padding: 5px 12px 5px 12px !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 14px solid #ffffff !important;
+  border-radius: 0 !important;
+  box-shadow: 0 3px 10px rgba(0,20,80,0.07), 0 1px 3px rgba(0,20,80,0.04) !important;
+  position: relative !important;
+}
+.fl-table tbody tr.fl-info-row td:first-child {
+  border-left: 1.5px solid #c8d8ee !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 6px !important;
+}
+.fl-table tbody tr.fl-info-row td:last-child {
+  border-right: 1.5px solid #c8d8ee !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 6px !important;
+}
+
+
+/* ── Selected flight: show only selected card ── */
+.fl-table tbody tr.flight-card.card-selected td {
+  background: #f0f7ff !important;
+  border-top: 2px solid #00c2ff !important;
 }
 
 /* ── Price cell ── */
@@ -2956,7 +3098,7 @@ html, body { background: var(--pro-bg) !important; }
   white-space: nowrap !important;
 }
 .fl-price-val {
-  font-size: 15px !important;
+  font-size: 11px !important;
   font-weight: 700 !important;
   color: #00c2ff !important;
   white-space: nowrap !important;
@@ -2965,7 +3107,7 @@ html, body { background: var(--pro-bg) !important; }
   display: inline !important;
 }
 .fl-price-sub {
-  font-size: 15px !important;
+  font-size: 11px !important;
   color: #00c2ff !important;
   margin-top: 0 !important;
   font-weight: 700 !important;
@@ -3025,7 +3167,7 @@ html, body { background: var(--pro-bg) !important; }
   border-radius: 0 !important;
 }
 .rt-airline-name, .airline-name {
-  font-size: 15px !important;
+  font-size: 11px !important;
   color: #334155 !important;
   font-weight: 400 !important;
   line-height: 1.3 !important;
@@ -3035,7 +3177,7 @@ html, body { background: var(--pro-bg) !important; }
 }
 .airline-code, .rt-airline-code {
   display: block !important;
-  font-size: 15px !important;
+  font-size: 11px !important;
   color: #334155 !important;
   font-weight: 400 !important;
   text-align: center !important;
@@ -3043,7 +3185,7 @@ html, body { background: var(--pro-bg) !important; }
 
 /* ── Flight number ── */
 .fl-flno {
-  font-size: 15px !important;
+  font-size: 11px !important;
   font-weight: 400 !important;
   color: var(--pro-text) !important;
   white-space: nowrap !important;
@@ -3052,7 +3194,7 @@ html, body { background: var(--pro-bg) !important; }
 
 /* ── Route ── */
 .fl-route {
-  font-size: 15px !important;
+  font-size: 11px !important;
   font-weight: 400 !important;
   color: var(--pro-text) !important;
   letter-spacing: -0.01em !important;
@@ -3060,7 +3202,7 @@ html, body { background: var(--pro-bg) !important; }
 
 /* ── Times ── */
 .fl-time, .fl-table .fl-time .flight-time {
-  font-size: 15px !important;
+  font-size: 12px !important;
   font-weight: 400 !important;
   color: var(--pro-text) !important;
   letter-spacing: -0.01em !important;
@@ -3068,7 +3210,7 @@ html, body { background: var(--pro-bg) !important; }
 
 /* ── Duration ── */
 .fl-dur {
-  font-size: 15px !important;
+  font-size: 12px !important;
   color: var(--pro-text) !important;
   font-weight: 400 !important;
   white-space: nowrap !important;
@@ -3076,7 +3218,7 @@ html, body { background: var(--pro-bg) !important; }
 
 /* ── Stop cell ── */
 .flight-stops {
-  font-size: 15px !important;
+  font-size: 11px !important;
   color: var(--pro-green) !important;
   font-weight: 400 !important;
   display: inline !important;
@@ -3087,7 +3229,7 @@ html, body { background: var(--pro-bg) !important; }
 /* ── Operated by ── */
 .fl-operated {
   display: block !important;
-  font-size: 15px !important;
+  font-size: 11px !important;
   color: #f97316 !important;
   font-style: italic !important;
   margin-top: 2px !important;
@@ -3234,7 +3376,7 @@ html, body { background: var(--pro-bg) !important; }
 .fl-bookmark-btn.unavailable { border-color: #fca5a5 !important; background: #fff5f5 !important; }
 
 /* ── 1P label ── */
-.fl-1p-label { position: static !important; display: inline !important; font-size: 15px !important; font-weight: 700 !important; color: #1a5fa8 !important; font-family: var(--font) !important; line-height: 1 !important; white-space: nowrap !important; }
+.fl-1p-label { position: static !important; display: inline !important; font-size: 11px !important; font-weight: 700 !important; color: #00c2ff !important; font-family: var(--font) !important; line-height: 1 !important; white-space: nowrap !important; }
 
 /* ── Best deal highlight ── */
 .fl-table tbody tr.flight-card.best-deal {
@@ -3242,7 +3384,7 @@ html, body { background: var(--pro-bg) !important; }
   background: var(--pro-card) !important;
 }
 .fl-table tbody tr.flight-card.best-deal td:first-child {
-  border-left: none !important;
+  border-left: 1.5px solid #c8d8ee !important;
 }
 
 /* ── Thead column alignment ── */
@@ -3266,7 +3408,7 @@ html, body { background: var(--pro-bg) !important; }
   border-bottom: 2px solid var(--pro-border) !important;
 }
 .rt-panel-label {
-  font-size: 13px !important;
+  font-size: 11px !important;
   font-weight: 700 !important;
   color: var(--pro-blue) !important;
   font-family: var(--pro-font) !important;
@@ -3290,7 +3432,7 @@ html, body { background: var(--pro-bg) !important; }
 
 /* ── Detail expansion panel ── */
 .fl-detail-panel {
-  background: #f8faff !important;
+  background: #edf4ff !important;
   border-top: none !important;
   border-bottom: none !important;
   display: flex !important;
@@ -3353,7 +3495,7 @@ html, body { background: var(--pro-bg) !important; }
   padding: 48px 24px !important;
   text-align: center !important;
   color: var(--pro-muted) !important;
-  font-size: 15px !important;
+  font-size: 11px !important;
   font-family: var(--pro-font) !important;
 }
 
@@ -4294,6 +4436,16 @@ tr.flight-card:has(.fl-bookmark-btn.unavailable) + tr.fl-info-row .rt-icon-btn[t
       </div>
     </div>
 
+    <!-- DEPARTURE DATE NAV BAR -->
+    <div class="fl-dep-nav" id="flDepNavBar">
+      <span class="fl-dep-nav-label">DEPARTURE</span>
+      <div class="fl-dep-nav-center">
+        <button class="fl-dep-nav-btn" onclick="navFlightDate(-1)">previous day «</button>
+        <span class="fl-dep-date" id="flDepDate">13.03.2026,Friday</span>
+        <button class="fl-dep-nav-btn" onclick="navFlightDate(1)">» next day</button>
+      </div>
+    </div>
+
     <!-- FLIGHT RESULTS LIST -->
     <div class="flight-list" id="flightList">
 
@@ -4833,12 +4985,37 @@ tr.flight-card:has(.fl-bookmark-btn.unavailable) + tr.fl-info-row .rt-icon-btn[t
 
     <!-- LOAD MORE -->
     <div style="text-align:center;margin-top:18px;">
-      <button class="load-more-btn" onclick="loadMore(this)">Show more flights (8 remaining)</button>
+
     </div>
 
-    <!-- CONTINUE BOOKING -->
-    <div style="text-align:center;margin-top:20px;margin-bottom:6px;">
-      <input type="button" class="submit continue-booking-btn" id="btnContinueReservation" value="CONTINUE BOOKING" onclick="continueBooking()">
+    <!-- ALL RESULTS + CONTINUE BOOKING -->
+    <div id="all-results-bar" style="display:none; margin:12px 0 0 0;">
+      <button id="btnAllResults" onclick="showAllResults()" style="
+        background:none;
+        border:none;
+        color:#00c2ff;
+        font-size:11px;
+        font-weight:600;
+        cursor:pointer;
+        padding:4px 8px 4px 0;
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        letter-spacing:0.04em;
+        text-transform:uppercase;
+      ">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#00c2ff" stroke-width="2.2" width="14" height="14"><polyline points="15 18 9 12 15 6"/></svg>
+        All Results
+      </button>
+    </div>
+    <div id="continue-booking-bar" style="display:none; margin-top:8px;">
+      <hr style="border:none; border-top:1.5px solid #c8d8ee; margin:0 0 10px 0;">
+      <div style="text-align:center;">
+        <input type="button" class="submit continue-booking-btn" id="btnContinueReservation" value="CONTINUE BOOKING" onclick="continueBooking()">
+      </div>
+    </div>
+    <!-- hidden original continue (fallback) -->
+    <div style="text-align:center;margin-top:20px;margin-bottom:6px;display:none;" id="btnContinueWrap">
     </div>
 
       </div><!-- /results-main -->
@@ -5129,6 +5306,24 @@ function fmtDate(d) {
          d.getFullYear() + ', ' + DAY_NAMES[d.getDay()];
 }
 
+var _flDepDate = null;
+function navFlightDate(delta) {
+  if (!_flDepDate) {
+    var raw = document.getElementById('cfromDateText') ? document.getElementById('cfromDateText').value : '';
+    if (raw) {
+      var parts = raw.split('/');
+      _flDepDate = new Date(parseInt(parts[2]), parseInt(parts[1])-1, parseInt(parts[0]));
+    } else {
+      _flDepDate = new Date();
+    }
+  }
+  _flDepDate.setDate(_flDepDate.getDate() + delta);
+  var el = document.getElementById('flDepDate');
+  if (el) el.textContent = String(_flDepDate.getDate()).padStart(2,'0') + '.' +
+    String(_flDepDate.getMonth()+1).padStart(2,'0') + '.' +
+    _flDepDate.getFullYear() + ',' + DAY_NAMES[_flDepDate.getDay()];
+}
+
 function rtNavDate(side, delta) {
   if (side === 'dep') {
     _rtDepDate = _rtDepDate || new Date();
@@ -5218,7 +5413,7 @@ function buildRTRow(f, idx, side) {
   var b2 = f.bag2 || f.bag || 'red';
   function mkBadge(pax, bag) {
     var unavail = (bag !== 'green');
-    return '<div class="rt-bag-badge"><span class="fl-1p-label" style="font-size:15px!important;line-height:22px!important">' + pax + '</span><button class="fl-bookmark-btn' + (unavail ? ' unavailable' : '') + '" title="Baggage ' + (unavail ? 'not ' : '') + 'included" style="width:22px;height:22px">' + suitcase + (unavail ? bline : '') + '</button></div>';
+    return '<div class="rt-bag-badge"><span class="fl-1p-label" style="font-size: 11px !important;line-height:22px!important">' + pax + '</span><button class="fl-bookmark-btn' + (unavail ? ' unavailable' : '') + '" title="Baggage ' + (unavail ? 'not ' : '') + 'included" style="width:22px;height:22px">' + suitcase + (unavail ? bline : '') + '</button></div>';
   }
 
   var seg1 = '<div class="rt-seg-block"><span class="rt-seg-route">' + f.from + ' ' + f.depTime + ' / ' + (f.via || f.to) + '</span><br><span class="rt-seg-time">' + (f.via ? f.seg1Land : f.arrTime) + '</span><div class="rt-badge-wrap">' + mkBadge(p1, b1) + '</div></div>';
@@ -5834,6 +6029,8 @@ function toggleFlDetail(id) {
   if (prev) {
     var icon = prev.querySelector('.rt-search-icon');
     if (icon) icon.style.background = isOpen ? '#00c2ff' : '#1a5fa8';
+    // Toggle pocket bottom stitch
+    prev.classList.toggle('detail-open', isOpen);
   }
 }
 
@@ -5847,16 +6044,84 @@ function selectFlight(btn) {
   document.querySelectorAll('.select-btn').forEach(b => { b.classList.remove('selected'); b.textContent = 'SELECT'; });
   document.querySelectorAll('.flight-card').forEach(c => c.classList.remove('card-selected'));
   document.querySelectorAll('.flight-radio').forEach(r => r.checked = false);
-  // Select this
+
+  // Select this button
   btn.classList.add('selected');
   btn.textContent = '✓ SELECTED';
-  var card = btn.closest('.flight-card');
-  if (card) {
-    card.classList.add('card-selected');
-    var radio = card.querySelector('.flight-radio');
-    if (radio) radio.checked = true;
+
+  // Find the anchor: walk backwards from the clicked row to find the
+  // first row of this flight group (not a sub-row and not an info-row)
+  var clickedRow = btn.closest('tr');
+  if (!clickedRow) return;
+
+  // Walk backwards to find group start (first flight-card that is NOT sub/info)
+  var groupStart = clickedRow;
+  var prev = clickedRow.previousElementSibling;
+  while (prev) {
+    var cls = prev.classList;
+    if (cls.contains('flight-card') && !cls.contains('fl-info-row') && !cls.contains('flight-card-sub')) {
+      groupStart = prev;
+      // keep walking back for multi-leg
+      if (cls.contains('flight-card-multi')) {
+        prev = prev.previousElementSibling;
+        continue;
+      }
+      break;
+    } else if (cls.contains('flight-card-sub') || cls.contains('flight-card-multi')) {
+      groupStart = prev;
+      prev = prev.previousElementSibling;
+      continue;
+    }
+    break;
   }
+
+  // Mark card-selected on groupStart
+  groupStart.classList.add('card-selected');
+  var radio = groupStart.querySelector('.flight-radio');
+  if (radio) radio.checked = true;
+
+  // Hide ALL flight rows
+  document.querySelectorAll('#flightList .flight-card, #flightList .fl-info-row, #flightList .fl-detail-row').forEach(function(row) {
+    row.style.display = 'none';
+  });
+
+  // Show all rows in this group: from groupStart forward until end of group
+  var row = groupStart;
+  while (row) {
+    var cls = row.classList;
+    if (cls.contains('flight-card') || cls.contains('fl-info-row') || cls.contains('fl-detail-row')) {
+      row.style.display = '';
+      row = row.nextElementSibling;
+    } else {
+      break;
+    }
+  }
+
+  // Show All Results + Continue Booking
+  var arBar = document.getElementById('all-results-bar');
+  var cbBar = document.getElementById('continue-booking-bar');
+  var mainBtn = document.getElementById('btnAllResultsMain');
+  if (arBar) arBar.style.display = 'block';
+  if (cbBar) cbBar.style.display = 'block';
+  if (mainBtn) mainBtn.style.display = 'block';
 }
+function showAllResults() {
+  // Show all flight rows again
+  document.querySelectorAll('#flightList .flight-card, #flightList .fl-info-row').forEach(function(row) {
+    row.style.display = '';
+  });
+  // Deselect
+  document.querySelectorAll('.select-btn').forEach(b => { b.classList.remove('selected'); b.textContent = 'SELECT'; });
+  document.querySelectorAll('.flight-card').forEach(c => c.classList.remove('card-selected'));
+  document.querySelectorAll('.flight-radio').forEach(r => r.checked = false);
+  // Hide bars
+  var arBar = document.getElementById('all-results-bar');
+  var cbBar = document.getElementById('continue-booking-bar');
+  if (arBar) arBar.style.display = 'none';
+  if (cbBar) cbBar.style.display = 'none';
+
+}
+
 function loadMore(btn) {
   btn.textContent = 'Loading...';
   btn.disabled = true;
@@ -5864,24 +6129,60 @@ function loadMore(btn) {
 }
 
 function continueBooking() {
-  var selected = document.querySelector('.select-btn.selected');
-  if (!selected) {
-    // Shake the button to prompt selection
+  // Find the selected card (.card-selected) or fall back to selected button
+  var card = document.querySelector('.flight-card.card-selected');
+  if (!card) {
+    var selected = document.querySelector('.select-btn.selected');
+    if (selected) card = selected.closest('.flight-card');
+  }
+  if (!card) {
     var btn = document.getElementById('btnContinueReservation');
     btn.style.transition = 'transform .1s, background .2s';
     btn.style.background = 'linear-gradient(135deg,#b91c1c,#991b1b)';
-    var shakes = [8,-8,6,-6,4,-4,0]; var i = 0;
-    (function step(){ if(i<shakes.length){ btn.style.transform='translateX('+shakes[i]+'px)'; i++; setTimeout(step,60); } else { btn.style.transform=''; setTimeout(function(){ btn.style.background=''; },800); } })();
+    var shakes = [8,-8,6,-6,4,-4,0]; var si = 0;
+    (function step(){ if(si<shakes.length){ btn.style.transform='translateX('+shakes[si]+'px)'; si++; setTimeout(step,60); } else { btn.style.transform=''; setTimeout(function(){ btn.style.background=''; },800); } })();
     btn.title = 'Please select a flight first';
     return;
   }
-  var card = selected.closest('.flight-card');
-  var airline = card.querySelector('.airline-name') ? card.querySelector('.airline-name').textContent : '';
-  var flightCode = card.querySelector('.airline-code') ? card.querySelector('.airline-code').textContent : '';
-  var price = card.querySelector('.flight-price') ? card.querySelector('.flight-price').textContent : '';
-  var dep = card.querySelector('.flight-dep .flight-time') ? card.querySelector('.flight-dep .flight-time').textContent : '';
-  var arr = card.querySelector('.flight-arr .flight-time') ? card.querySelector('.flight-arr .flight-time').textContent : '';
-  alert('Continuing booking for:\n' + airline + ' ' + flightCode + '\nDeparture: ' + dep + '  Arrival: ' + arr + '\nPrice: ' + price + ' per person');
+  // Extract price
+  var priceEl = card.querySelector('.fl-price-val.flight-price') || card.querySelector('.flight-price') || card.querySelector('.fl-price-val');
+  var price = priceEl ? priceEl.textContent.trim() : '';
+  // Extract airline name
+  var airlineEl = card.querySelector('.airline-name') || card.querySelector('.rt-airline-name');
+  var airline = airlineEl ? airlineEl.textContent.trim() : '';
+  // Extract flight code (e.g. "TK 780")
+  var codeEl = card.querySelector('.airline-code') || card.querySelector('.rt-airline-code');
+  var flightNo = codeEl ? codeEl.textContent.trim() : '';
+  // Extract route (e.g. "BGW / IST")
+  var routeEl = card.querySelector('.fl-route') || card.querySelector('.flight-route');
+  var route = routeEl ? routeEl.textContent.trim() : '';
+  // Extract dep/arr times
+  var depEl = card.querySelector('.flight-dep .flight-time');
+  var dep = depEl ? depEl.textContent.trim() : '';
+  var arrEl = card.querySelector('.flight-arr .flight-time');
+  var arr = arrEl ? arrEl.textContent.trim() : '';
+  // Extract airline IATA code from img src
+  // e.g. "https://pics.avs.io/200/200/TK@2x.png" -> "TK"
+  var airlineCode = '';
+  var logoImg = card.querySelector('.rt-airline-logo img') || card.querySelector('img[src*="avs.io"]');
+  if (logoImg) {
+    var src = logoImg.getAttribute('src') || '';
+    var m = src.match(/avs\.io\/\d+\/\d+\/([A-Z0-9]{2,3})(?:@|\.|$)/i);
+    if (m) { airlineCode = m[1].toUpperCase(); }
+    else if (logoImg.alt) { airlineCode = logoImg.alt.trim().toUpperCase(); }
+  }
+  // Extract duration and stops
+  var durEl = card.querySelector('.fl-dur') || card.querySelector('.flight-route-dur');
+  var duration = durEl ? durEl.textContent.replace(/\s+/g,' ').trim() : '';
+  var stopsEl = card.querySelector('.flight-stops');
+  var stops = stopsEl ? stopsEl.textContent.trim() : 'Direct';
+  // Build URL and navigate
+  var params = new URLSearchParams({
+    price: price, airline: airline, flightNo: flightNo,
+    route: route, dep: dep, arr: arr,
+    airlineCode: airlineCode, duration: duration, stops: stops
+  });
+  window.location.href = 'ITIX_Booking_Detail.html?' + params.toString();
 }
 
 // ══════════════════════════════════════════════
@@ -6969,6 +7270,7 @@ function doSearch() {
     // Show/hide RT dual panel based on round-trip
     var rtPanel = document.getElementById('rtDualPanel');
     var flightListEl = document.getElementById('flightList');
+    var depNavBar = document.getElementById('flDepNavBar');
     var loadMoreEl = flightListEl ? flightListEl.nextElementSibling : null;
     var continueEl = document.getElementById('btnContinueReservation');
     var graphEl    = document.getElementById('graphPanel');
@@ -6977,6 +7279,7 @@ function doSearch() {
       // Show RT dual panel, hide one-way card list + load more + continue
       rtPanel.style.display = '';
       if (flightListEl) flightListEl.style.display = 'none';
+      if (depNavBar)    depNavBar.style.display    = 'none';
       if (loadMoreEl)   loadMoreEl.style.display   = 'none';
       if (continueEl)   continueEl.closest('div').style.display = 'none';
       // Keep graph + matrix visible above RT panel
@@ -6989,6 +7292,7 @@ function doSearch() {
       // One-way: show flight list + graph + matrix, hide RT panel
       rtPanel.style.display = 'none';
       if (flightListEl) flightListEl.style.display = '';
+      if (depNavBar)    depNavBar.style.display    = '';
       if (loadMoreEl)   loadMoreEl.style.display   = '';
       if (continueEl)   continueEl.closest('div').style.display = '';
       if (graphEl)  graphEl.style.display  = '';
@@ -7639,36 +7943,42 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 
+
 <script>
 (function() {
-  var GREEN = {color:'#059669', border:'rgba(5,150,105,0.35)', bg:'rgba(5,150,105,0.06)'};
-  var RED   = {color:'#e2503a', border:'rgba(226,80,58,0.35)',  bg:'rgba(226,80,58,0.06)'};
-  function colorBtn(btn) {
-    if (btn.dataset.rnd) return;
-    btn.dataset.rnd = '1';
-    var p = Math.random() < 0.5 ? GREEN : RED;
-    btn.style.cssText += ';border-color:'+p.border+'!important;background:'+p.bg+'!important;';
-    btn.querySelectorAll('svg *').forEach(function(el) {
-      if (el.tagName.toLowerCase() === 'text') { el.setAttribute('fill', p.color); el.style.fill = p.color; }
-      else { el.setAttribute('stroke', p.color); el.style.stroke = p.color; }
+  function getInfoRowCancelColor(priceCell) {
+    // Walk up: td > tr(detail-panel td) > tr(fl-detail-row) > tbody > previousSibling fl-info-row
+    var detailRow = priceCell.closest('tr.fl-detail-row');
+    if (!detailRow) return null;
+    var infoRow = detailRow.previousElementSibling;
+    while (infoRow && !infoRow.classList.contains('fl-info-row')) {
+      infoRow = infoRow.previousElementSibling;
+    }
+    if (!infoRow) return null;
+    var cancelBtn = infoRow.querySelector('.rt-icon-btn[title="Cancel rules"]');
+    if (!cancelBtn) return null;
+    var svg = cancelBtn.querySelector('svg');
+    return svg ? svg.getAttribute('stroke') : null;
+  }
+  function makeIcon(color) {
+    var isGreen = color === '#059669';
+    var bc = isGreen ? 'rgba(5,150,105,0.35)' : 'rgba(226,80,58,0.35)';
+    var bg = isGreen ? 'rgba(5,150,105,0.06)' : 'rgba(226,80,58,0.06)';
+    var svg = '<svg viewBox="0 0 24 24" fill="none" stroke="'+color+'" stroke-width="2"><circle cx="12" cy="12" r="9"/><text x="12" y="16.5" text-anchor="middle" font-size="13" font-weight="700" font-family="Inter,sans-serif" fill="'+color+'" stroke="none">$</text></svg>';
+    return '<span class="fl-price-cancel-icon"><button class="rt-icon-btn" title="Cancel rules" style="border-color:'+bc+'!important;background:'+bg+'!important;" onclick="event.stopPropagation()">'+svg+'</button></span>';
+  }
+  function inject() {
+    document.querySelectorAll('.fl-class-price').forEach(function(td) {
+      if (td.querySelector('.fl-price-cancel-icon')) return;
+      var color = getInfoRowCancelColor(td) || '#059669';
+      td.insertAdjacentHTML('beforeend', makeIcon(color));
     });
   }
-  function colorAll() {
-    document.querySelectorAll('.rt-icon-btn[title="Refund rules"], .rt-icon-btn[title="Cancel rules"]').forEach(colorBtn);
-  }
-  var obs = new MutationObserver(function(muts) {
-    muts.forEach(function(m) {
-      m.addedNodes.forEach(function(n) {
-        if (n.nodeType !== 1) return;
-        if (n.matches && n.matches('.rt-icon-btn[title="Refund rules"],.rt-icon-btn[title="Cancel rules"]')) colorBtn(n);
-        n.querySelectorAll && n.querySelectorAll('.rt-icon-btn[title="Refund rules"],.rt-icon-btn[title="Cancel rules"]').forEach(colorBtn);
-      });
-    });
-  });
   document.addEventListener('DOMContentLoaded', function() {
-    obs.observe(document.body, {childList:true, subtree:true});
-    colorAll();
+    inject();
+    new MutationObserver(inject).observe(document.body, {childList:true, subtree:true});
   });
 })();
 </script>
+
 </body></html>
